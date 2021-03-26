@@ -61,4 +61,4 @@ else:
             line = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r[2]).zfill(6), r[3], r[4], r[7], r[8])
         result += line
     st.markdown(result)
-st.markdown(諸元：[経済産業省　委託調査報告書](https://www.meti.go.jp/topic/data/e90622aj.html))    
+st.markdown([経済産業省　委託調査報告書](https://www.meti.go.jp/topic/data/e90622aj.html))    
