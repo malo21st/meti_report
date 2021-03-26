@@ -13,7 +13,7 @@ def get_connection():
 conn = get_connection()
 
 def get_sql(name, key_word):
-    if name == "報告書":
+    if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
         lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
@@ -41,7 +41,7 @@ st.title("委託調査報告書(経済産業省)検索サービス")
 
 col1, col2 = st.beta_columns((1,4))
 with col1:
-    name = st.radio("項　目：", ("報告書", "委託先"))
+    name = st.radio("項　目：", ("報告書名", "委託先"))
 with col2:
     key_word = st.text_input("キーワード：", value='')
     
