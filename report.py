@@ -48,7 +48,7 @@ with col2:
     
 # 検索
 msg, data = get_report(name, key_word)
-data
+st.table(data)
 # 検索結果（表）
 # HEADER = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
 # if isinstance(data, int):
