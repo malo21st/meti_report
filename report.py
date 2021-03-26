@@ -48,7 +48,7 @@ with col2:
 df_report = get_report(name, key_word)
 df_report = df_report.tail(20)
 
-HEADER = '| 管理番号 | 　報　告　書　名 | 委託先 | 報告書 | データ |\n|:-:|:--|:-:|:-:|:-:|\n'
+HEADER = '| 管理\n番号 | 　報　告　書　名 | 委託先 | 報告書 | データ |\n|:-:|:--|:-:|:-:|:-:|\n'
 
 if df_report.columns[0] == "msg":
     st.markdown(df_report["msg"].values[0])
