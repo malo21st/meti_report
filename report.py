@@ -18,8 +18,8 @@ def get_sql(name, key_word):
     elif name == "委託先":
         lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw)
-    df = pd.read_sql(SQL, conn)
-    return df
+    df_sql = pd.read_sql(SQL, conn)
+    return df_sql
 
 def get_report(name, key_word):
     if key_word == "":
@@ -28,7 +28,8 @@ def get_report(name, key_word):
         msg, data = "キーワードに「％」は使えません。", -3
     else:
         try:
-            msg, data = "", get_sql(name, key_word)
+            data = get_sql(name, key_word)
+            msg = ""
         except:
             msg, data = "エラーが発生しました。", -2
     if data == "[]":
