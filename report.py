@@ -39,7 +39,7 @@ def get_report(name, key_word):
 
 st.title("委託調査報告書(経済産業省)検索サービス")
 
-col1, col2 = st.beta_columns((1,4))
+col1, col2 = st.beta_columns((1,5))
 with col1:
     name = st.radio("項　目：", ("報告書名", "委託先"))
 with col2:
