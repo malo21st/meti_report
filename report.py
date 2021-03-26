@@ -32,7 +32,7 @@ def get_report(name, key_word):
         except:
             msg, data = "エラーが発生しました。", -2
     if data == "[]":
-        msg = "該当する報告書はありません。", -1
+        msg, data = "該当する報告書はありません。", -1
     return msg, data
 
 # タイトル
