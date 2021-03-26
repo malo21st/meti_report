@@ -47,7 +47,6 @@ with col2:
     
 # 検索
 msg, df_report = get_report(name, key_word)
-df_report = df_report.tail(20)
 
 # 検索結果（表）
 HEADER = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
@@ -55,6 +54,7 @@ if isinstance(df_report, list):
     st.markdown(msg)
 else:
     result = HEADER
+    df_report = df_report.tail(20)
     for i, r in df_report[::-1].iterrows():
         if r[8] == "":
             row = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
