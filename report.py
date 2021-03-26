@@ -24,7 +24,7 @@ def get_sql(name, key_word):
 
 def get_report(name, key_word):
     if key_word == "":
-        data = '[{"msg" : "キーワードを入れて下さい。"}]'
+        data = '[{"msg" : "項目を選択して、キーワードを入力して下さい。"}]'
     elif "%" in key_word:
         data = '[{"msg" : "キーワードに「％」は使えません。"}]'
     else:
