@@ -19,23 +19,21 @@ def get_sql(name, key_word):
         lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw)
     df = pd.read_sql(SQL, conn)
-#     json_data = df.to_json(orient='records')
-    return df #json_data
+    return df
 
 def get_report(name, key_word):
     if key_word == "":
-        data = '[{"msg" : "項目を選択して、キーワードを入力して下さい。"}]'
+        msg, data = "項目を選択して、キーワードを入力して下さい。", [0]
     elif "%" in key_word:
-        data = '[{"msg" : "キーワードに「％」は使えません。"}]'
+        msg, data = "キーワードに「％」は使えません。", [-2]
     else:
         try:
-            data = get_sql(name, key_word) #.json()
+            msg, data = "", get_sql(name, key_word)
         except:
-            data = '[{"msg" : "エラーが発生しました。"}]'
+            msg, data = "エラーが発生しました。", [-1]
     if data == "[]":
-        data = '[{"msg" : "該当する報告書はありません。"}]'
-#     df_out = pd.read_json(data)
-    return data #df_out
+        msg = "該当する報告書はありません。"
+    return msg, data
 
 # タイトル
 st.title("委託調査報告書 (経済産業省) 検索サービス")
@@ -48,13 +46,13 @@ with col2:
     key_word = st.text_input("キーワード：", value='')
     
 # 検索
-df_report = get_report(name, key_word)
+msg, df_report = get_report(name, key_word)
 df_report = df_report.tail(20)
 
 # 検索結果（表）
 HEADER = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
-if df_report.columns[0] == "msg":
-    st.markdown(df_report["msg"].values[0])
+if isinstance(df_report, list):
+    st.markdown(msg)
 else:
     result = HEADER
     for i, r in df_report[::-1].iterrows():
