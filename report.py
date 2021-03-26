@@ -19,8 +19,8 @@ def get_sql(name, key_word):
         lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw)
     df = pd.read_sql(SQL, conn)
-    json_data = df.to_json(orient='records')
-    return json_data
+#     json_data = df.to_json(orient='records')
+    return df #json_data
 
 def get_report(name, key_word):
     if key_word == "":
@@ -34,8 +34,8 @@ def get_report(name, key_word):
             data = '[{"msg" : "エラーが発生しました。"}]'
     if data == "[]":
         data = '[{"msg" : "該当する報告書はありません。"}]'
-    df_out = pd.read_json(data)
-    return df_out
+#     df_out = pd.read_json(data)
+    return data #df_out
 
 # タイトル
 st.title("委託調査報告書 (経済産業省) 検索サービス")
