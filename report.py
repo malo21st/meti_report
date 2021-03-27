@@ -54,11 +54,11 @@ with col2:
 # 検索
 msg, data = get_report(name, key_word)
 
-# 検索結果（表）
+# 検索結果（メッセージと表）
+st.markdown(msg)
+
 HEADER = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
-if isinstance(data, int):
-    st.markdown(msg)
-elif isinstance(data, pd.core.frame.DataFrame):
+if isinstance(data, pd.core.frame.DataFrame):
     result = HEADER
     df_report = data.tail(LIMIT)[::SORT]
     for _, r in df_report.iterrows():
@@ -70,4 +70,4 @@ elif isinstance(data, pd.core.frame.DataFrame):
     st.markdown(result)
     
 # 出典
-st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
+st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")    
