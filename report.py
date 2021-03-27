@@ -4,7 +4,7 @@ import requests
 import pandas as pd
 import sqlite3
 
-DB = "/content/drive/MyDrive/Google_Colab/委託調査報告書/report.db"
+DB = "report.db"
 
 @st.cache(allow_output_mutation=True)
 def get_connection():
