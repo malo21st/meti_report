@@ -5,7 +5,7 @@ import sqlite3
 
 DB = "report.db"
 
-LIMIT = 0 # １度に表示するデータの数
+LIMIT = 50 # １度に表示するデータの数
 SORT = -1  # -1：登録が新しい順，1：登録が古い順
 
 @st.cache(allow_output_mutation=True)
