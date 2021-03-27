@@ -57,9 +57,9 @@ msg, data = get_report(name, key_word)
 # 検索結果（メッセージと表）
 st.markdown("**{}**".format(msg))
 
-HEADER = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
+result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
 if isinstance(data, pd.core.frame.DataFrame):
-    result = HEADER
+#     result = HEADER
     df_report = data.tail(LIMIT)[::SORT]
     for _, r in df_report.iterrows():
         if r[8] == "":
