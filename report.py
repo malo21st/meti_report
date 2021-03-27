@@ -1,6 +1,5 @@
 # app.py　委託調査報告書（経済産業省）検索アプリ
 import streamlit as st
-import requests
 import pandas as pd
 import sqlite3
 
@@ -13,52 +12,56 @@ def get_connection():
 conn = get_connection()
 
 def get_sql(name, key_word):
-    if name == "報告書":
+    if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
         lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw)
-    df = pd.read_sql(SQL, conn)
-    json_data = df.to_json(orient='records')
-    return json_data
+    df_sql = pd.read_sql(SQL, conn)
+    return df_sql
 
 def get_report(name, key_word):
     if key_word == "":
-        data = '[{"msg" : "キーワードを入れて下さい。"}]'
+        msg, data = "項目を選択して、キーワードを入力して下さい。", 0
     elif "%" in key_word:
-        data = '[{"msg" : "キーワードに「％」は使えません。"}]'
+        msg, data = "キーワードに「％」は使えません。", -3
     else:
         try:
-            data = get_sql(name, key_word) #.json()
+            data = get_sql(name, key_word)
+            msg = ""
         except:
-            data = '[{"msg" : "エラーが発生しました。"}]'
-    if data == "[]":
-        data = '[{"msg" : "該当する報告書はありません。"}]'
-    df_out = pd.read_json(data)
-    return df_out
+            msg, data = "エラーが発生しました。", -2
+    if data.empty:
+        msg, data = "該当する報告書はありません。", -1
+    return msg, data
 
-st.title("委託調査報告書(経済産業省)検索サービス")
+# タイトル
+st.title("委託調査報告書 (経済産業省) 検索サービス")
 
-col1, col2 = st.beta_columns((1,4))
+# 項目とキーワードの入力
+col1, col2 = st.beta_columns((1,5.5))
 with col1:
-    name = st.radio("項　目：", ("報告書", "委託先"))
+    name = st.radio("項　目：", ("報告書名", "委託先"))
 with col2:
     key_word = st.text_input("キーワード：", value='')
     
-df_report = get_report(name, key_word)
-df_report = df_report.tail(20)
+# 検索
+msg, data = get_report(name, key_word)
 
-HEADER = '| 管理番号 | 　報　告　書　名 | 委託先 | 報告書 | データ |\n|:-:|:--|:-:|:-:|:-:|\n'
-
-if df_report.columns[0] == "msg":
-    st.markdown(df_report["msg"].values[0])
-else:
+# 検索結果（表）
+HEADER = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
+if isinstance(data, int):
+    st.markdown(msg)
+elif isinstance(data, pd.core.frame.DataFrame):
     result = HEADER
+    df_report = data.tail(20)
     for i, r in df_report[::-1].iterrows():
         if r[8] == "":
-            line = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
+            row = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
         else:
-            line = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r[2]).zfill(6), r[3], r[4], r[7], r[8])
-        result += line
+            row = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r[2]).zfill(6), r[3], r[4], r[7], r[8])
+        result += row
     st.markdown(result)
     
+# 出典
+st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
