@@ -60,7 +60,7 @@ st.markdown("**{}**".format(msg))
 ## 表
 result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
 if isinstance(data, pd.core.frame.DataFrame):
-    if SORT = 1:
+    if SORT == 1:
         df_temp = data.head(LIMIT)
     elif SORT == -1:
         df_temp = data.tail(LIMIT)
