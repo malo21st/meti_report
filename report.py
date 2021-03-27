@@ -23,17 +23,17 @@ def get_sql(name, key_word):
 
 def get_report(name, key_word):
     if key_word == "":
-        msg, data = "項目を選択して、キーワードを入力して下さい。", 0
+        msg, data = "項目を選択して、キーワードを入力して下さい。", [0]
     elif "%" in key_word:
-        msg, data = "キーワードに「％」は使えません。", -3
+        msg, data = "キーワードに「％」は使えません。", [-3]
     else:
         try:
             data = get_sql(name, key_word)
             msg = ""
         except:
-            msg, data = "エラーが発生しました。", -2
+            msg, data = "エラーが発生しました。", [-2]
     if data == "[]":
-        msg, data = "該当する報告書はありません。", -1
+        msg, data = "該当する報告書はありません。", [-1]
     return msg, data
 
 # タイトル
