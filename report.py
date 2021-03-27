@@ -41,26 +41,30 @@ def get_report(name, key_word):
             msg, data = "該当する報告書はありません。", -1
     return msg, data
 
-# タイトル
+#【表示】タイトル
 st.title("委託調査報告書 (経済産業省) 検索サービス")
 
-# 項目とキーワードの入力
+#【入力】項目とキーワード
 col1, col2 = st.beta_columns((1,5.5))
 with col1:
     name = st.radio("項　目：", ("報告書名", "委託先"))
 with col2:
     key_word = st.text_input("キーワード：", value='')
     
-# 検索
+#【処理】検索
 msg, data = get_report(name, key_word)
 
-# 検索結果（メッセージと表）
+#【出力】検索結果
+## メッセージ
 st.markdown("**{}**".format(msg))
-
+## 表
 result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
 if isinstance(data, pd.core.frame.DataFrame):
-#     result = HEADER
-    df_report = data.tail(LIMIT)[::SORT]
+    if SORT = 1:
+        df_temp = data.head(LIMIT)
+    elif SORT == -1:
+        df_temp = data.tail(LIMIT)
+    df_report = df_temp[::SORT]
     for _, r in df_report.iterrows():
         if r[8] == "":
             row = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
@@ -69,5 +73,5 @@ if isinstance(data, pd.core.frame.DataFrame):
         result += row
     st.markdown(result)
     
-# 出典
+#【表示】出典
 st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")    
