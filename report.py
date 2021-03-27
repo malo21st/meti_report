@@ -5,6 +5,9 @@ import sqlite3
 
 DB = "report.db"
 
+LIMIT = 20 # １度に表示するデータの数
+SORT = -1  # -1：登録が新しい順，1：登録が古い順
+
 @st.cache(allow_output_mutation=True)
 def get_connection():
     return sqlite3.connect(DB, check_same_thread=False)
@@ -28,7 +31,10 @@ def get_report(name, key_word):
     else:
         try:
             data = get_sql(name, key_word)
-            msg = ""
+            if len(data) > LIMIT:
+                msg = "該当した報告書 {}件 から、登録の新しい {}件 を表示しました。".format(len(data), LIMIT)
+            else:
+                msg = "該当した報告書は、{}件 です。".format(len(data))
         except:
             msg, data = "エラーが発生しました。", -2
         if data.empty:
@@ -54,8 +60,8 @@ if isinstance(data, int):
     st.markdown(msg)
 elif isinstance(data, pd.core.frame.DataFrame):
     result = HEADER
-    df_report = data.tail(20)
-    for i, r in df_report[::-1].iterrows():
+    df_report = data.tail(LIMIT)[::SORT]
+    for _, r in df_report.iterrows():
         if r[8] == "":
             row = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
         else:
