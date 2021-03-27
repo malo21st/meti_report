@@ -31,8 +31,8 @@ def get_report(name, key_word):
             msg = ""
         except:
             msg, data = "エラーが発生しました。", -2
-    if data.empty:
-        msg, data = "該当する報告書はありません。", -1
+        if data.empty:
+            msg, data = "該当する報告書はありません。", -1
     return msg, data
 
 # タイトル
