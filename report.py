@@ -1,4 +1,4 @@
-# app.py　委託調査報告書（経済産業省）検索アプリ
+# report.py　委託調査報告書（経済産業省）検索アプリ
 import streamlit as st
 import pandas as pd
 import sqlite3
