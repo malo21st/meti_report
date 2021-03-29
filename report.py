@@ -6,7 +6,7 @@ import sqlite3
 DB = "report.db"
 
 LIMIT = 50 # １度に表示するデータの数
-SORT = -1  # -1：登録が新しい順，1：登録が古い順
+SORT = "DESC"  # "DESC"：登録が新しい順，""：登録が古い順
 
 @st.cache(allow_output_mutation=True)
 def get_connection():
@@ -19,7 +19,7 @@ def get_sql(name, key_word):
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
         lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
-    SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw)
+    SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw) + "ORDER BY id " + SORT
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
@@ -60,11 +60,7 @@ st.markdown("**{}**".format(msg))
 ## 表
 result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
 if isinstance(data, pd.core.frame.DataFrame):
-    if SORT == 1:
-        df_temp = data.head(LIMIT)
-    elif SORT == -1:
-        df_temp = data.tail(LIMIT)
-    df_report = df_temp[::SORT]
+    df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
         if r[8] == "":
             row = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
