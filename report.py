@@ -6,7 +6,7 @@ import sqlite3
 DB = "report.db"
 
 LIMIT = 50 # １度に表示するデータの数
-SORT = "" #"DESC"  # "DESC"：登録が新しい順，""：登録が古い順
+SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
 
 @st.cache(allow_output_mutation=True)
 def get_connection():
