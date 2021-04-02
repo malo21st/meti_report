@@ -47,19 +47,19 @@ st.title("委託調査報告書 (経済産業省) 検索サービス")
 #【入力】項目とキーワード
 col1, col2 = st.beta_columns((1,5.5))
 with col1:
-    name = st.radio("項　目：", ("報告書名", "委託先"))
+    item = st.radio("項　目：", ("報告書名", "委託先"))
 with col2:
     key_word = st.text_input("キーワード：", value='')
     
 #【処理】検索
-msg, data = get_report(name, key_word)
+msg, data = get_report(item, key_word)
 
 #【出力】検索結果
 ## メッセージ
 st.markdown("**{}**".format(msg))
 ## 表
-result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
 if isinstance(data, pd.core.frame.DataFrame):
+    result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
         if r[8] == "":
