@@ -2,9 +2,6 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
-import streamlit.components.v1 as components
-
-components.html("<title>委託調査報告書　検索サービス</title>")
     
 DB = "report.db"
 
