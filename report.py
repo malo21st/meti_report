@@ -11,7 +11,6 @@ SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
 @st.cache(allow_output_mutation=True)
 def get_connection():
     return sqlite3.connect(DB, check_same_thread=False)
-
 conn = get_connection()
 
 def get_sql(name, key_word):
@@ -59,24 +58,23 @@ msg, data = get_report(item, key_word)
 st.markdown("**{}**".format(msg))
 ## 表
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
-if isinstance(data, pd.core.frame.DataFrame):
+if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataFrame の場合に処理
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
-        if (r['pdf'] != ""):
-            if r['pdf_YN']:
+        if (r['pdf'] != ""): # pdfあり
+            if r['pdf_YN']: # リンクあり
                 row = "|{}|{}|{}|[●]({})|".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'])
-            else:
+            else: # リンクなし
                 row = "|{}|{}|{}|×|".format(str(r['num']).zfill(6), r['report'], r['auther'])
-        else:
+        else: # pdfなし
                 row = "|{}|{}|{}||".format(str(r['num']).zfill(6), r['report'], r['auther'])
-            
-        if (r['data'] != ""):
-            if r['data_YN']:
+        if (r['data'] != ""): # dataあり
+            if r['data_YN']: # リンクあり
                 row += "[●]({})|\n".format(r['data'])
-            else:
+            else: # リンクなし
                 row += "×|\n"
-        else:
+        else: # dataなし
             row += "|\n"    
         result += row
     st.markdown(result)
