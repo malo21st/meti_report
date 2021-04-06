@@ -58,14 +58,15 @@ msg, data = get_report(item, key_word)
 ## メッセージ
 st.markdown("**{}**".format(msg))
 ## 表
+## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
 if isinstance(data, pd.core.frame.DataFrame):
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
-        if r[9] == "":
-            row = "|{}|{}|{}|[●]({})||\n".format(str(r[3]).zfill(6), r[4], r[5], r[8])
+        if r['data'] == "":
+            row = "|{}|{}|{}|[●]({})||\n".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'])
         else:
-            row = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r[3]).zfill(6), r[4], r[5], r[8], r[9])
+            row = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'], r['data'])
         result += row
     st.markdown(result)
     
