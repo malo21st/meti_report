@@ -62,13 +62,14 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
+        row = "|{}|{}|{}|".format(str(r['num']).zfill(6), r['report'], r['auther'])
         if (r['pdf'] != ""): # pdfあり
             if r['pdf_YN']: # リンクあり
-                row = "|{}|{}|{}|[●]({})|".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'])
+                row += "[●]({})|".format(r['pdf'])
             else: # リンクなし
-                row = "|{}|{}|{}|×|".format(str(r['num']).zfill(6), r['report'], r['auther'])
+                row += "×|"
         else: # pdfなし
-                row = "|{}|{}|{}||".format(str(r['num']).zfill(6), r['report'], r['auther'])
+                row += "|"
         if (r['data'] != ""): # dataあり
             if r['data_YN']: # リンクあり
                 row += "[●]({})|\n".format(r['data'])
