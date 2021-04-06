@@ -62,10 +62,10 @@ if isinstance(data, pd.core.frame.DataFrame):
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
-        if r[8] == "":
-            row = "|{}|{}|{}|[●]({})||\n".format(str(r[2]).zfill(6), r[3], r[4], r[7])
+        if r[9] == "":
+            row = "|{}|{}|{}|[●]({})||\n".format(str(r[3]).zfill(6), r[4], r[5], r[8])
         else:
-            row = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r[2]).zfill(6), r[3], r[4], r[7], r[8])
+            row = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r[3]).zfill(6), r[4], r[5], r[8], r[9])
         result += row
     st.markdown(result)
     
