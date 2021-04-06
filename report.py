@@ -63,10 +63,21 @@ if isinstance(data, pd.core.frame.DataFrame):
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
-        if r['data'] == "":
-            row = "|{}|{}|{}|[●]({})||\n".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'])
+        if (r['pdf'] != ""):
+            if r['pdf_YN']:
+                row = "|{}|{}|{}|[●]({})|".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'])
+            else:
+                row = "|{}|{}|{}|×|".format(str(r['num']).zfill(6), r['report'], r['auther'])
         else:
-            row = "|{}|{}|{}|[●]({})|[●]({})|\n".format(str(r['num']).zfill(6), r['report'], r['auther'], r['pdf'], r['data'])
+                row = "|{}|{}|{}||".format(str(r['num']).zfill(6), r['report'], r['auther'])
+            
+        if (r['data'] != ""):
+            if r['data_YN']:
+                row += "[●]({})|\n".format(r['data'])
+            else:
+                row += "×|\n"
+        else:
+            row += "|\n"    
         result += row
     st.markdown(result)
     
