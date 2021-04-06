@@ -63,14 +63,16 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
         row = "|{}|{}|{}|".format(str(r['num']).zfill(6), r['report'], r['auther'])
-        if (r['pdf'] != ""): # pdfあり
+        #「報告書（pdf）」列の処理
+        if (r['pdf'] != ""):
             if r['pdf_YN']: # リンクあり
                 row += "[●]({})|".format(r['pdf'])
             else: # リンクなし
                 row += "×|"
         else: # pdfなし
                 row += "|"
-        if (r['data'] != ""): # dataあり
+        #「データ（data）」列の処理
+        if (r['data'] != ""):
             if r['data_YN']: # リンクあり
                 row += "[●]({})|\n".format(r['data'])
             else: # リンクなし
