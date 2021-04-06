@@ -68,7 +68,7 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
             if r['pdf_YN']: # リンクあり
                 row += "[●]({})|".format(r['pdf'])
             else: # リンクなし
-                row += "×|"
+                row += "[×]({})|".format(r['pdf'])
         else: # pdfなし
                 row += "|"
         #「データ（data）」列の処理
@@ -76,7 +76,7 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
             if r['data_YN']: # リンクあり
                 row += "[●]({})|\n".format(r['data'])
             else: # リンクなし
-                row += "×|\n"
+                row += "[×]({})|\n".format(r['data'])
         else: # dataなし
             row += "|\n"    
         result += row
