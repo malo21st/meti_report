@@ -15,8 +15,8 @@ def get_connection():
 conn = get_connection()
 
 def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
-""" 
-RDBをSQLで検索する 
+"""
+RDBをSQLで検索する
 """
     if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
@@ -27,8 +27,8 @@ RDBをSQLで検索する
     return df_sql
 
 def get_report(name: str, key_word: str) -> str, pd.core.frame.DataFrame:
-""" 
-項目名とキーワードで検索し、メッセージと検索結果を返す 
+"""
+項目名とキーワードで検索し、メッセージと検索結果を返す
 """
     if key_word == "":
         msg, data = "項目を選択して、キーワードを入力して下さい。", 0
