@@ -17,9 +17,9 @@ conn = get_connection()
 # RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
 def get_sql(name: str, key_word: str):
     if name == "報告書名":
-        lst_kw = [f"report LIKE '%{ kw }%'" for kw in  key_word.split()]
+        lst_kw = [f"report LIKE '%{ kw }%'" for kw in key_word.split()]
     elif name == "委託先":
-        lst_kw = [f"auther LIKE '%{ kw }%'" for kw in  key_word.split()]
+        lst_kw = [f"auther LIKE '%{ kw }%'" for kw in key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw) + "ORDER BY id " + SORT
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
@@ -59,9 +59,9 @@ msg, data = get_report(item, key_word)
 #【出力】検索結果
 ## メッセージ
 st.markdown(f"**{ msg }**")
-## 表
+## 表　dataのカラム名
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
-if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataFrame の場合に処理
+if isinstance(data, pd.core.frame.DataFrame): # 検索結果がある場合（data が DataFrame の時）
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
