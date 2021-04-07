@@ -28,21 +28,21 @@ def get_sql(name: str, key_word: str):
 # 項目名とキーワードで検索し、メッセージと検索結果を返す
 def get_report(name: str, key_word: str):
     if key_word == "":
-        msg, data = "項目を選択して、キーワードを入力して下さい。", DF_EMPTY
+        msg, df_data = "項目を選択して、キーワードを入力して下さい。", DF_EMPTY
     elif "%" in key_word:
-        msg, data = "キーワードに「％」は使えません。", DF_EMPTY
+        msg, df_data = "キーワードに「％」は使えません。", DF_EMPTY
     else:
         try:
-            data = get_sql(name, key_word)
+            df_data = get_sql(name, key_word)
             if len(data) > LIMIT:
-                msg = f"該当した報告書 { len(data) }件 から、登録の新しい { LIMIT }件 を表示しました。"
+                msg = f"該当した報告書 { len(df_data) }件 から、登録の新しい { LIMIT }件 を表示しました。"
             else:
-                msg = f"該当した報告書は、{ len(data) }件 です。"
+                msg = f"該当した報告書は、{ len(df_data) }件 です。"
         except:
-            msg, data = "エラーが発生しました。", DF_EMPTY
+            msg, df_data = "エラーが発生しました。", DF_EMPTY
         if data.empty:
-            msg, data = "該当する報告書はありません。", DF_EMPTY
-    return msg, data
+            msg, df_data = "該当する報告書はありません。", DF_EMPTY
+    return msg, df_data
 
 #【表示】タイトル
 st.title("委託調査報告書 (経済産業省) 検索サービス")
@@ -55,7 +55,7 @@ with col2:
     key_word = st.text_input("キーワード：", value='')
     
 #【処理】検索
-msg, data = get_report(item, key_word)
+msg, df_data = get_report(item, key_word)
 
 #【出力】検索結果
 ## メッセージ
@@ -64,7 +64,7 @@ st.markdown(f"**{ msg }**")
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
 if data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
-    df_report = data.head(LIMIT)
+    df_report = df_data.head(LIMIT)
     for _, r in df_report.iterrows():
         row = f"|{ r['num'].zfill(6) }|{ r['report'] }|{ r['auther'] }|"
         #「報告書（pdf）」列の処理
