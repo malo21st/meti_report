@@ -65,7 +65,7 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
-        row = f"|{ r['num']).zfill(6) }|{ r['report'] }|{ r['auther'] }|"
+        row = f"|{ r['num'].zfill(6) }|{ r['report'] }|{ r['auther'] }|"
         #「報告書（pdf）」列の処理
         if (r['pdf'] != ""):
             if r['pdf_YN']: # リンクあり
