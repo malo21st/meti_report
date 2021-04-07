@@ -8,13 +8,14 @@ DB = "report.db"
 LIMIT = 50 # １度に表示するデータの数
 SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
 
+# RDBとのコネクションを確立
 @st.cache(allow_output_mutation=True)
 def get_connection():
     return sqlite3.connect(DB, check_same_thread=False)
 conn = get_connection()
 
-# SQLで検索　入力：項目名，検索ワード　出力：検索結果(DataFrame)
 def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
+""" RDBをSQLで検索する """
     if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
@@ -23,8 +24,8 @@ def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
-# 報告書を検索　　入力：項目名，検索ワード　出力：メッセージ(str)，検索結果(DataFrame) エラーの時、数字(int)
-def get_report(name: str, key_word: str) -> pd.core.frame.DataFrame:
+def get_report(name: str, key_word: str) -> str, pd.core.frame.DataFrame:
+""" 項目名とキーワードで検索し、メッセージと検索結果を返す """
     if key_word == "":
         msg, data = "項目を選択して、キーワードを入力して下さい。", 0
     elif "%" in key_word:
