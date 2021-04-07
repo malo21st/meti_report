@@ -62,7 +62,7 @@ msg, data = get_report(item, key_word)
 st.markdown(f"**{ msg }**")
 ## 表　dataのカラム名
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
-if not data.empty: # 検索結果がある場合
+if data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
