@@ -26,10 +26,11 @@ def get_sql(name: str, key_word: str):
 
 # 項目名とキーワードで検索し、メッセージと検索結果を返す
 def get_report(name: str, key_word: str):
+    df_empty = pd.DataFrame()
     if key_word == "":
-        msg, data = "項目を選択して、キーワードを入力して下さい。", 0
+        msg, data = "項目を選択して、キーワードを入力して下さい。", df_empty
     elif "%" in key_word:
-        msg, data = "キーワードに「％」は使えません。", -3
+        msg, data = "キーワードに「％」は使えません。", df_empty
     else:
         try:
             data = get_sql(name, key_word)
@@ -38,9 +39,9 @@ def get_report(name: str, key_word: str):
             else:
                 msg = f"該当した報告書は、{ len(data) }件 です。"
         except:
-            msg, data = "エラーが発生しました。", -2
+            msg, data = "エラーが発生しました。", df_empty
         if data.empty:
-            msg, data = "該当する報告書はありません。", -1
+            msg, data = "該当する報告書はありません。", df_empty
     return msg, data
 
 #【表示】タイトル
@@ -61,7 +62,7 @@ msg, data = get_report(item, key_word)
 st.markdown(f"**{ msg }**")
 ## 表　dataのカラム名
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
-if isinstance(data, pd.core.frame.DataFrame): # 検索結果がある場合（data が DataFrame の時）
+if not data.empty: # 検索結果がある場合
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
