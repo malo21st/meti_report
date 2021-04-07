@@ -14,7 +14,7 @@ def get_connection():
 conn = get_connection()
 
 # SQLで検索　入力：項目名，検索ワード　出力：検索結果(DataFrame)
-def get_sql(name, key_word):
+def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
     if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
@@ -24,7 +24,7 @@ def get_sql(name, key_word):
     return df_sql
 
 # 報告書を検索　　入力：項目名，検索ワード　出力：メッセージ(str)，検索結果(DataFrame) エラーの時、数字(int)
-def get_report(name, key_word):
+def get_report(name: str, key_word: str) -> pd.core.frame.DataFrame:
     if key_word == "":
         msg, data = "項目を選択して、キーワードを入力して下さい。", 0
     elif "%" in key_word:
