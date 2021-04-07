@@ -17,9 +17,9 @@ conn = get_connection()
 # RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
 def get_sql(name: str, key_word: str):
     if name == "報告書名":
-        lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
+        lst_kw = [f"report LIKE '%{ kw }%'" for kw in  key_word.split()]
     elif name == "委託先":
-        lst_kw = ["auther LIKE '%{}%'".format(kw) for kw in  key_word.split()]
+        lst_kw = [f"auther LIKE '%{ kw }%'" for kw in  key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw) + "ORDER BY id " + SORT
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
@@ -34,9 +34,9 @@ def get_report(name: str, key_word: str):
         try:
             data = get_sql(name, key_word)
             if len(data) > LIMIT:
-                msg = "該当した報告書 {}件 から、登録の新しい {}件 を表示しました。".format(len(data), LIMIT)
+                msg = f"該当した報告書 { len(data) }件 から、登録の新しい { LIMIT }件 を表示しました。"
             else:
-                msg = "該当した報告書は、{}件 です。".format(len(data))
+                msg = f"該当した報告書は、{ len(data) }件 です。"
         except:
             msg, data = "エラーが発生しました。", -2
         if data.empty:
@@ -65,22 +65,21 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = data.head(LIMIT)
     for _, r in df_report.iterrows():
-        row = "|{}|{}|{}|".format(str(r['num']).zfill(6), r['report'], r['auther'])
+        row = f"|{ r['num']).zfill(6) }|{ r['report'] }|{ r['auther'] }|"
         #「報告書（pdf）」列の処理
         if (r['pdf'] != ""):
             if r['pdf_YN']: # リンクあり
-                row += f"[●]({r['pdf']})|"
-#                 row += "[●]({})|".format(r['pdf'])
+                row += f"[●]({ r['pdf'] })|"
             else: # リンクなし
-                row += "[×]({})|".format(r['pdf'])
+                row += f"[×]({ r['pdf'] })|"
         else: # pdfなし
                 row += "|"
         #「データ（data）」列の処理
         if (r['data'] != ""):
             if r['data_YN']: # リンクあり
-                row += "[●]({})|\n".format(r['data'])
+                row += f"[●]({ r['data'] })|\n"
             else: # リンクなし
-                row += "[×]({})|\n".format(r['data'])
+                row += f"[×]({ r['data'] })|\n"
         else: # dataなし
             row += "|\n"    
         result += row
