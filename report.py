@@ -40,7 +40,7 @@ def get_report(name: str, key_word: str):
                 msg = f"該当した報告書は、{ len(df_data) }件 です。"
         except:
             msg, df_data = "エラーが発生しました。", DF_EMPTY
-        if data.empty:
+        if df_data.empty:
             msg, df_data = "該当する報告書はありません。", DF_EMPTY
     return msg, df_data
 
@@ -62,7 +62,7 @@ msg, df_data = get_report(item, key_word)
 st.markdown(f"**{ msg }**")
 ## 表　dataのカラム名
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
-if data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
+if df_data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
     df_report = df_data.head(LIMIT)
     for _, r in df_report.iterrows():
