@@ -23,7 +23,7 @@ def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
-def get_report(name: str, key_word: str) -> str, pd.core.frame.DataFrame:
+def get_report(name: str, key_word: str) -> str pd.core.frame.DataFrame:
     if key_word == "":
         msg, data = "項目を選択して、キーワードを入力して下さい。", 0
     elif "%" in key_word:
