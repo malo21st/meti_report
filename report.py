@@ -14,7 +14,7 @@ def get_connection():
     return sqlite3.connect(DB, check_same_thread=False)
 conn = get_connection()
 
-def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
+def get_sql(name: str, key_word: str):
 """
     RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
 """
@@ -26,7 +26,7 @@ def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
-def get_report(name: str, key_word: str) -> pd.core.frame.DataFrame:
+def get_report(name: str, key_word: str):
 """
     項目名とキーワードで検索し、メッセージと検索結果を返す
 """
