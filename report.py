@@ -69,7 +69,8 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
         #「報告書（pdf）」列の処理
         if (r['pdf'] != ""):
             if r['pdf_YN']: # リンクあり
-                row += "[●]({})|".format(r['pdf'])
+                row += f"[●]({r['pdf']})|"
+#                 row += "[●]({})|".format(r['pdf'])
             else: # リンクなし
                 row += "[×]({})|".format(r['pdf'])
         else: # pdfなし
