@@ -15,9 +15,7 @@ def get_connection():
 conn = get_connection()
 
 def get_sql(name: str, key_word: str) -> pd.core.frame.DataFrame:
-'''
-RDBをSQLで検索する
-'''
+'''RDBをSQLで検索する'''
     if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
