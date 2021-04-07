@@ -47,7 +47,7 @@ def get_report(name: str, key_word: str):
 st.title("委託調査報告書 (経済産業省) 検索サービス")
 
 #【入力】項目とキーワード
-col1, col2 = st.beta_columns((1,5.5))
+col1, col2 = st.beta_columns((1, 5.5))
 with col1:
     item = st.radio("項　目：", ("報告書名", "委託先"))
 with col2:
@@ -85,7 +85,7 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
         result += row
     #【出力】検索結果
     st.markdown(result)
-    st.markdown("【凡例】●：リンクあり，×：リンク切れ")
+    st.markdown("【凡例】●：リンク，×：リンク切れ")
     
 #【表示】出典
 st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
