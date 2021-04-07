@@ -34,7 +34,7 @@ def get_report(name: str, key_word: str):
     else:
         try:
             df_data = get_sql(name, key_word)
-            if len(data) > LIMIT:
+            if len(df_data) > LIMIT:
                 msg = f"該当した報告書 { len(df_data) }件 から、登録の新しい { LIMIT }件 を表示しました。"
             else:
                 msg = f"該当した報告書は、{ len(df_data) }件 です。"
@@ -60,7 +60,7 @@ msg, df_data = get_report(item, key_word)
 #【出力】検索結果
 ## メッセージ
 st.markdown(f"**{ msg }**")
-## 表　dataのカラム名
+## 表　df_dataのカラム名
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
 if df_data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
