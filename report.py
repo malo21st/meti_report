@@ -14,10 +14,8 @@ def get_connection():
     return sqlite3.connect(DB, check_same_thread=False)
 conn = get_connection()
 
+# RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
 def get_sql(name: str, key_word: str):
-"""
-    RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
-"""
     if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
     elif name == "委託先":
@@ -26,10 +24,8 @@ def get_sql(name: str, key_word: str):
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
+# 項目名とキーワードで検索し、メッセージと検索結果を返す
 def get_report(name: str, key_word: str):
-"""
-    項目名とキーワードで検索し、メッセージと検索結果を返す
-"""
     if key_word == "":
         msg, data = "項目を選択して、キーワードを入力して下さい。", 0
     elif "%" in key_word:
