@@ -13,6 +13,7 @@ def get_connection():
     return sqlite3.connect(DB, check_same_thread=False)
 conn = get_connection()
 
+# SQLで検索　入力：項目名，検索ワード　出力：検索結果(DataFrame)
 def get_sql(name, key_word):
     if name == "報告書名":
         lst_kw = ["report LIKE '%{}%'".format(kw) for kw in  key_word.split()]
@@ -22,6 +23,7 @@ def get_sql(name, key_word):
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
+# 報告書を検索　　入力：項目名，検索ワード　出力：メッセージ(str)，検索結果(DataFrame) エラーの時、数字(int)
 def get_report(name, key_word):
     if key_word == "":
         msg, data = "項目を選択して、キーワードを入力して下さい。", 0
@@ -80,8 +82,9 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
         else: # dataなし
             row += "|\n"    
         result += row
+    #【出力】検索結果
     st.markdown(result)
     st.markdown("【凡例】●：リンクあり，×：リンク切れ")
     
 #【表示】出典
-st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")    
+st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
