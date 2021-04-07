@@ -7,6 +7,7 @@ DB = "report.db"
 
 LIMIT = 50 # １度に表示するデータの数
 SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
+DF_EMPTY = pd.DataFrame() # 空のデータフレーム
 
 # RDBとのコネクションを確立
 @st.cache(allow_output_mutation=True)
@@ -26,11 +27,10 @@ def get_sql(name: str, key_word: str):
 
 # 項目名とキーワードで検索し、メッセージと検索結果を返す
 def get_report(name: str, key_word: str):
-    df_empty = pd.DataFrame()
     if key_word == "":
-        msg, data = "項目を選択して、キーワードを入力して下さい。", df_empty
+        msg, data = "項目を選択して、キーワードを入力して下さい。", DF_EMPTY
     elif "%" in key_word:
-        msg, data = "キーワードに「％」は使えません。", df_empty
+        msg, data = "キーワードに「％」は使えません。", DF_EMPTY
     else:
         try:
             data = get_sql(name, key_word)
@@ -39,9 +39,9 @@ def get_report(name: str, key_word: str):
             else:
                 msg = f"該当した報告書は、{ len(data) }件 です。"
         except:
-            msg, data = "エラーが発生しました。", df_empty
+            msg, data = "エラーが発生しました。", DF_EMPTY
         if data.empty:
-            msg, data = "該当する報告書はありません。", df_empty
+            msg, data = "該当する報告書はありません。", DF_EMPTY
     return msg, data
 
 #【表示】タイトル
