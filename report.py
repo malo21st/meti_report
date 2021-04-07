@@ -5,7 +5,7 @@ import sqlite3
     
 DB = "report.db"
 
-LIMIT = 50 # １度に表示するデータの数
+LIMIT = 50 # 一度に表示する出力結果の数
 SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
 DF_EMPTY = pd.DataFrame() # 空のデータフレーム
 
@@ -64,8 +64,9 @@ st.markdown(f"**{ msg }**")
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
 if df_data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
     result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
-    df_report = df_data.head(LIMIT)
+    df_report = df_data.head(LIMIT) # 出力数の制限
     for _, r in df_report.iterrows():
+        # 「管理No.（num）」「報告書名（report）」「委託先（auther）」列の処理
         row = f"|{ r['num'].zfill(6) }|{ r['report'] }|{ r['auther'] }|"
         #「報告書（pdf）」列の処理
         if (r['pdf'] != ""):
