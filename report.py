@@ -58,7 +58,7 @@ msg, data = get_report(item, key_word)
 
 #【出力】検索結果
 ## メッセージ
-st.markdown("**{}**".format(msg))
+st.markdown(f"**{ msg }**")
 ## 表
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
 if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataFrame の場合に処理
@@ -72,7 +72,7 @@ if isinstance(data, pd.core.frame.DataFrame): # インスタンスdata が DataF
                 row += f"[●]({ r['pdf'] })|"
             else: # リンクなし
                 row += f"[×]({ r['pdf'] })|"
-        else: # pdfなし
+        else: # 報告書（pdf）なし
                 row += "|"
         #「データ（data）」列の処理
         if (r['data'] != ""):
