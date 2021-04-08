@@ -50,7 +50,7 @@ st.title("委託調査報告書 (経済産業省) 検索サービス")
 #【入力】項目とキーワード
 col1, col2 = st.beta_columns((1, 5.5))
 with col1:
-    item = st.radio("項　目：", ("報告書名", "委託先"))
+    item = st.radio("項　目：", ["報告書名", "委託先"])
 with col2:
     key_word = st.text_input("キーワード：", value='')
     
