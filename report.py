@@ -7,6 +7,7 @@ DB = "report.db"
 
 LIMIT = 50 # 一度に表示する出力結果の数
 SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
+DIC_ITEM = {["報告書名":"report", "委託先"]:"auther"}
 DF_EMPTY = pd.DataFrame() # 空のデータフレーム
 
 # RDBとのコネクションを確立
@@ -16,24 +17,21 @@ def get_connection():
 conn = get_connection()
 
 # RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
-def get_sql(name: str, key_word: str):
-    if name == "報告書名":
-        lst_kw = [f"report LIKE '%{ kw }%'" for kw in key_word.split()]
-    elif name == "委託先":
-        lst_kw = [f"auther LIKE '%{ kw }%'" for kw in key_word.split()]
+def get_sql(item: str, key_word: str):
+    lst_kw = [f"report LIKE '%{ DIC_ITEM[item] }%'" for kw in key_word.split()]
     SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw) + "ORDER BY id " + SORT
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
 # 項目名とキーワードで検索し、メッセージと検索結果を返す
-def get_report(name: str, key_word: str):
+def get_report(item: str, key_word: str):
     if key_word == "":
         msg, df_data = "項目を選択して、キーワードを入力して下さい。", DF_EMPTY
     elif "%" in key_word:
         msg, df_data = "キーワードに「％」は使えません。", DF_EMPTY
     else:
         try:
-            df_data = get_sql(name, key_word)
+            df_data = get_sql(item, key_word)
             if len(df_data) > LIMIT:
                 msg = f"該当した報告書 { len(df_data) }件 から、登録の新しい { LIMIT }件 を表示しました。"
             else:
@@ -50,7 +48,7 @@ st.title("委託調査報告書 (経済産業省) 検索サービス")
 #【入力】項目とキーワード
 col1, col2 = st.beta_columns((1, 5.5))
 with col1:
-    item = st.radio("項　目：", ["報告書名", "委託先"])
+    item = st.radio("項　目：", tuple(DIC_ITEM))
 with col2:
     key_word = st.text_input("キーワード：", value='')
     
