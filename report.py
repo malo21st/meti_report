@@ -7,7 +7,8 @@ DB = "report.db"
 
 LIMIT = 50 # 一度に表示する出力結果の数
 SORT = "DESC" # "DESC"：登録が新しい順，""：登録が古い順
-DIC_ITEM = {"報告書名":"report", "委託先":"auther"}
+
+DIC_ITEM = {"報告書名" : "report", "委託先" : "auther"}
 DF_EMPTY = pd.DataFrame() # 空のデータフレーム
 
 # RDBとのコネクションを確立
