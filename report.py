@@ -13,9 +13,9 @@ DF_EMPTY = pd.DataFrame() # 空のデータフレーム
 
 # RDBとのコネクションを確立
 @st.cache(allow_output_mutation=True)
-def get_connection():
+def done_connection():
     return sqlite3.connect(DB, check_same_thread=False)
-conn = get_connection()
+conn = done_connection()
 
 # RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
 def get_sql(item: str, key_word: str):
