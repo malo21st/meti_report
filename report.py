@@ -20,7 +20,7 @@ conn = get_connection()
 # RDBをSQLで検索、検索結果を返す（空白で複数キーワード検索可能）
 def get_sql(item: str, key_word: str):
     lst_kw = [f"{ DIC_ITEM[item] } LIKE '%{ kw }%'" for kw in key_word.split()]
-    SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw) + "ORDER BY id " + SORT
+    SQL = "SELECT * FROM master WHERE " + " AND ".join(lst_kw) + " ORDER BY id " + SORT
     df_sql = pd.read_sql(SQL, conn)
     return df_sql
 
