@@ -91,7 +91,7 @@ if df_data.size: # 0：検索結果がない場合，1以上：検索結果が�
 #【表示】出典・使い方
 with st.beta_expander("概要・使い方・出典"):
     st.markdown("- 概　要：国内外の**有名コンサルが作成した高価な報告書**をタダで閲覧できます。")
-    st.markdown("- 使い方：キーワードを入力後、**「エンター」キーを押すと検索**します。")
+    st.markdown("- 使い方：キーワードを入力後、**「Enter」キーを押すと検索**します。")
     st.markdown("- 使い方：**空白区切りで、複数キーワード**をＡＮＤ条件で検索できます。")
     st.markdown("- その他：検索結果は、登録が**新しい報告書から最大50件**を表示してます。")
     st.markdown("- 資　料：[お宝の委託調査報告書をもっと閲覧して欲しい(PyData.Fukuoka)](https://docs.google.com/presentation/d/1j13WnD8AgiiYprLIZkI1dbgNlryQDmWY8g5KRbHuiiM/edit?usp=sharing)")
