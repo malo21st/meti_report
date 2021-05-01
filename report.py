@@ -90,3 +90,6 @@ if df_data.size: # 0：検索結果がない場合，1以上：検索結果が�
     
 #【表示】出典
 st.markdown("出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
+#【表示】使い方
+expander = st.beta_expander("Tips")
+expander.write("・空白区切りで、複数キーワードのＡＮＤ条件で検索できます。")
