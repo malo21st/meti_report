@@ -96,3 +96,4 @@ with st.beta_expander("概要・使い方・出典"):
     st.markdown("- その他：検索結果は、登録が**新しい報告書から最大５０件**を表示します。")
     st.markdown("- 資　料：[お宝の委託調査報告書をもっと閲覧して欲しい(PyData.Fukuoka)](https://docs.google.com/presentation/d/1j13WnD8AgiiYprLIZkI1dbgNlryQDmWY8g5KRbHuiiM/edit?usp=sharing)")
     st.markdown("- 出　典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
+    st.markdown("- Twitter：[@malo21st](https://twitter.com/malo21st)")
