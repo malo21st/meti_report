@@ -89,6 +89,8 @@ if df_data.size: # 0：検索結果がない場合，1以上：検索結果が�
     st.markdown("【凡例】●：リンク，×：リンク切れ")
     
 #【表示】出典・使い方
-with st.beta_expander("出典・使い方ほか"):
-    st.markdown("- 出典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
-    st.markdown("- 空白区切りで、複数キーワードをＡＮＤ条件で検索できます。")
+with st.beta_expander("概要・使い方・出典"):
+    st.markdown("- 概　要：国内外の有名コンサルが作成した報告書を閲覧できます。")
+    st.markdown("- 使い方：キーワードを入力後、「エンター」キーを押すと検索します。")
+    st.markdown("- 使い方：空白区切りで、複数キーワードをＡＮＤ条件で検索できます。")
+    st.markdown("- 出　典：[委託調査報告書（METI/経済産業省）](https://www.meti.go.jp/topic/data/e90622aj.html)")
