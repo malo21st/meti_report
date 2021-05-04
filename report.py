@@ -47,7 +47,7 @@ def get_report(item: str, key_word: str):
 st.title("委託調査報告書 (経済産業省) 検索サービス")
 
 #【入力】項目とキーワード
-col1, col2 = st.beta_columns((1, 5.5))
+col1, col2 = st.beta_columns((1, 5))
 with col1:
     item = st.radio("項　目：", tuple(DIC_ITEM))
 with col2:
