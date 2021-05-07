@@ -62,11 +62,11 @@ st.markdown(f"**{ msg }**")
 ## 表　df_dataのカラム名
 ## 'id', 'fy', 'fy_jp', 'num', 'report', 'auther', 'dept', 'capa', 'pdf', 'data', 'pdf_YN', 'data_YN'
 if df_data.size: # 0：検索結果がない場合，1以上：検索結果がある場合
-    result = '| 管理No. | 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:-:|:--|:-:|:-:|:-:|\n'
+    result = '| 　報　告　書　名 | 委託先 | 報告書 | デ｜タ |\n|:--|:-:|:-:|:-:|\n'
     df_report = df_data.head(LIMIT) # 出力数の制限
     for _, r in df_report.iterrows():
         # 「管理No.（num）」「報告書名（report）」「委託先（auther）」列の処理
-        row = f"|{ r['num'].zfill(6) }|{ r['report'] }|{ r['auther'] }|"
+        row = f"|{ r['report'] }|{ r['auther'] }|"
         #「報告書（pdf）」列の処理
         if (r['pdf'] != ""):
             if r['pdf_YN']: # リンクあり
