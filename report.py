@@ -47,7 +47,7 @@ def get_report(item: str, key_word: str):
 st.title("委託調査報告書 (経済産業省) 検索サービス")
 
 #【入力】項目とキーワード
-col1, col2 = st.beta_columns((1, 5))
+col1, col2 = st.columns((1, 5))
 with col1:
     item = st.radio("項　目：", tuple(DIC_ITEM))
 with col2:
@@ -89,7 +89,7 @@ if df_data.size: # 0：検索結果がない場合，1以上：検索結果が�
     st.markdown("【凡例】●：リンク，×：リンク切れ")
     
 #【表示】概要・使い方など
-with st.beta_expander("概要・使い方・出典"):
+with st.expander("概要・使い方・出典"):
     st.info(
         "- 概　要：国内外の**有名コンサルが作成した高価な調査報告書**をタダで閲覧できます。  \n"
         "- 使い方：キーワードを入力後、**「Enter」キーを押すと検索**します。  \n"
